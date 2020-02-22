@@ -1,6 +1,7 @@
 const roleHarvester = require("role.harvester");
 const roleUpgrader = require("role.upgrader");
 const roleBuilder = require("role.builder");
+// const roleMiner = require('role.miner')
 
 module.exports.loop = function() {
   //clear memory
@@ -36,16 +37,19 @@ module.exports.loop = function() {
     if (creep.memory.role == "builder") {
       roleBuilder.run(creep);
     }
+    // if (creep.memory.role == "miner") {
+    //     roleBuilder.run(creep);
+    // }
   }
 
-  let minimumNumberOfHarvesters = 8;
+  let minimumNumberOfHarvesters = 4;
   let numberOfHarvesters = _.sum(
     Game.creeps,
     c => c.memory.role == "harvester"
   );
-  let minimumNumberOfUpgraders = 6;
+  let minimumNumberOfUpgraders = 4;
   let numberOfUpgraders = _.sum(Game.creeps, c => c.memory.role == "upgrader");
-  let minimumNumberOfBuilders = 6;
+  let minimumNumberOfBuilders = 3;
   let numberOfBuilders = _.sum(Game.creeps, c => c.memory.role == "builder");
 
   let name = undefined;
@@ -61,6 +65,9 @@ module.exports.loop = function() {
     "tough": 10,
     "claim": 600
  */
+
+//
+
 
   if (numberOfHarvesters < minimumNumberOfHarvesters) {
     name = Game.spawns.BatesMotel.createCreep(
@@ -103,11 +110,15 @@ module.exports.loop = function() {
   console.log("Upgrader count:", numberOfUpgraders);
   console.log("Harvester count:", numberOfHarvesters);
 
+let messaged = 0
   if (
-    numberOfHarvesters == 10 &&
-    numberOfUpgraders == 10 &&
-    numberOfHarvesters == 10
+    numberOfHarvesters == 4 &&
+    numberOfUpgraders == 4 &&
+    numberOfHarvesters == 3 &&
+    messaged === 0
   ) {
-    console.log("we made it, baby.");
+      
+    Game.notify("We made it, baby.", [0])
+    messaged = 1
   }
 };
