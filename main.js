@@ -39,7 +39,10 @@ module.exports.loop = function() {
   }
 
   let minimumNumberOfHarvesters = 8;
-  let numberOfHarvesters = _.sum(Game.creeps,c => c.memory.role == "harvester");
+  let numberOfHarvesters = _.sum(
+    Game.creeps,
+    c => c.memory.role == "harvester"
+  );
   let minimumNumberOfUpgraders = 6;
   let numberOfUpgraders = _.sum(Game.creeps, c => c.memory.role == "upgrader");
   let minimumNumberOfBuilders = 6;
@@ -47,7 +50,7 @@ module.exports.loop = function() {
 
   let name = undefined;
 
-/* //https://docs.screeps.com/api/#Constants
+  /* //https://docs.screeps.com/api/#Constants
     BODYPART_COST
     "move": 50,
     "work": 100,
@@ -60,22 +63,37 @@ module.exports.loop = function() {
  */
 
   if (numberOfHarvesters < minimumNumberOfHarvesters) {
-    name = Game.spawns.BatesMotel.createCreep([WORK, WORK, CARRY, MOVE], undefined, { //300
-      role: "harvester",
-      dryRun: false
-    });
+    name = Game.spawns.BatesMotel.createCreep(
+      [WORK, WORK, CARRY, MOVE],
+      undefined,
+      {
+        //300
+        role: "harvester",
+        dryRun: false
+      }
+    );
   }
   if (numberOfUpgraders < minimumNumberOfUpgraders) {
-    name = Game.spawns.BatesMotel.createCreep([WORK, CARRY, CARRY, MOVE, MOVE], undefined, { //300
-      role: "upgrader",
-      dryRun: false
-    });
+    name = Game.spawns.BatesMotel.createCreep(
+      [WORK, CARRY, CARRY, MOVE, MOVE],
+      undefined,
+      {
+        //300
+        role: "upgrader",
+        dryRun: false
+      }
+    );
   }
   if (numberOfBuilders < minimumNumberOfBuilders) {
-    name = Game.spawns.BatesMotel.createCreep([WORK, WORK, CARRY, MOVE], undefined, { //300
-      role: "builder", 
-      dryRun: false
-    });
+    name = Game.spawns.BatesMotel.createCreep(
+      [WORK, WORK, CARRY, MOVE],
+      undefined,
+      {
+        //300
+        role: "builder",
+        dryRun: false
+      }
+    );
   }
 
   if (!(name < 0)) {
@@ -86,8 +104,9 @@ module.exports.loop = function() {
   console.log("Harvester count:", numberOfHarvesters);
 
   if (
-    (numberOfHarvesters =
-      10 && numberOfUpgraders == 10 && numberOfHarvesters == 10)
+    numberOfHarvesters == 10 &&
+    numberOfUpgraders == 10 &&
+    numberOfHarvesters == 10
   ) {
     console.log("we made it, baby.");
   }
